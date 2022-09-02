@@ -1,0 +1,15 @@
+{
+    "name": "rakibhosssain/alfasoft",
+    "autoload": {
+        "psr-4": {
+            "AlfaSoft\\": "includes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Md Rakib Hossain",
+            "email": "rakibwebdev1@gmail.com"
+        }
+    ],
+    "require": {}
+}

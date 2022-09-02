@@ -13,6 +13,7 @@ define('PLUGIN_TEXTDOMAIN', 'alfasoft');
 
 use AlfaSoft\CreatePersonPostType as PostTypeClass;
 use AlfaSoft\EnqueueScripts as EnqueueScriptsClass;
+use AlfaSoft\CustomField as CustomFieldClass;
 
 if (!class_exists('AlfaSoft')) {
 	class AlfaSoft
@@ -37,6 +38,7 @@ if (!class_exists('AlfaSoft')) {
 			$this->createPerson();
 			add_filter('enter_title_here', [$this, 'changeTitlePlaceHolder']);
 			$this->adminEnqueue();
+			$this->createCustomField();
 		}
 
 		/**
@@ -54,12 +56,13 @@ if (!class_exists('AlfaSoft')) {
 			//Deactivation code in here
 		}
 
+		//Create Person Post Type
 		public static function createPerson()
 		{
 			$CreateCPT = new PostTypeClass();
-			//$CreateCPT->personPostType();
 		}
 
+		// Remove Default Title and Add New Placeholder
 		public static function changeTitlePlaceHolder()
 		{
 			if ('person' == get_post_type()) {
@@ -69,9 +72,16 @@ if (!class_exists('AlfaSoft')) {
 			return $title;
 		}
 
+		// Enqueue admin scripts
 		public static function adminEnqueue()
 		{
 			$enqueue_script = new EnqueueScriptsClass();
+		}
+
+		//Create Custom Fields for the post type
+		public static function createCustomField()
+		{
+			$customField = new CustomFieldClass();
 		}
 	}
 

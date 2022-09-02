@@ -17,7 +17,9 @@ class EnqueueScripts
 	public function adminEnqueue()
 	{
 		if (is_admin()) {
-			wp_enqueue_script('alfa-admin', PLUGIN_URL . 'assets/admin/js/main.js', ['jquery'], PLUGIN_VERSION, false);
+			if ('person' == get_post_type()) {
+				wp_enqueue_script('alfa-admin', PLUGIN_URL . 'assets/admin/js/main.js', ['jquery'], PLUGIN_VERSION, false);
+			}
 		}
 	}
 }

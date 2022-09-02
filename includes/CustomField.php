@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 
 class CustomField
 {
-	private $config = '{"title":"Custom Fields","prefix":"alfasoft","domain":"alfasoft","class_name":"CustomField","context":"advanced","priority":"default","cpt":"person","fields":[{"type":"email","label":"Person Email","id":"alfasoftperson-email"},{"type":"number","label":"Person ID","id":"alfasoftperson-number"}]}';
+	private $config = '{"title":"Additional Fields","prefix":"alfasoft","domain":"alfasoft","class_name":"CustomField","post-type":["post"],"context":"advanced","priority":"default","cpt":"person","fields":[{"type":"number","label":"Person ID","id":"alfasoftperson-id"},{"type":"email","label":"Person Email","id":"alfasoftperson-email"},{"type":"select","label":"Country","options":"select-country: Select Country","id":"alfasoftcountry"},{"type":"tel","label":"Phone","id":"alfasoftphone"}]}';
 
 	public function __construct()
 	{
@@ -98,6 +98,9 @@ class CustomField
 			case 'number':
 				$this->input_minmax($field);
 				break;
+			case 'select':
+				$this->select($field);
+				break;
 			default:
 				$this->input($field);
 		}
@@ -128,6 +131,44 @@ class CustomField
 			$field['type'],
 			$this->value($field)
 		);
+	}
+
+	private function select($field)
+	{
+		printf(
+			'<select id="%s" name="%s">%s</select>',
+			$field['id'],
+			$field['id'],
+			$this->select_options($field)
+		);
+	}
+
+	private function select_selected($field, $current)
+	{
+		$value = $this->value($field);
+		if ($value === $current) {
+			return 'selected';
+		}
+		return '';
+	}
+
+	private function select_options($field)
+	{
+		$output  = [];
+		$options = explode("\r\n", $field['options']);
+		$i       = 0;
+		foreach ($options as $option) {
+			$pair     = explode(':', $option);
+			$pair     = array_map('trim', $pair);
+			$output[] = sprintf(
+				'<option %s value="%s"> %s</option>',
+				$this->select_selected($field, $pair[0]),
+				$pair[0],
+				$pair[1]
+			);
+			$i++;
+		}
+		return implode('<br>', $output);
 	}
 
 	private function value($field)

@@ -1,0 +1,27 @@
+body {
+  padding: 50px;
+  margin: 0px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li {
+  padding: 0px;
+  margin: 0px;
+}
+ul,
+li {
+  list-style: none;
+}
+
+ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}

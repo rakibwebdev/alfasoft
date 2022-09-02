@@ -39,6 +39,7 @@ if (!class_exists('AlfaSoft')) {
 			add_filter('enter_title_here', [$this, 'changeTitlePlaceHolder']);
 			$this->adminEnqueue();
 			$this->createCustomField();
+			add_filter('archive_template', [$this, 'get_custom_post_type_template']) ;
 		}
 
 		/**
@@ -82,6 +83,17 @@ if (!class_exists('AlfaSoft')) {
 		public static function createCustomField()
 		{
 			$customField = new CustomFieldClass();
+		}
+
+		//Archive Template
+		public static function get_custom_post_type_template($archive_template)
+		{
+			global $post;
+
+			if (is_post_type_archive('person')) {
+				$archive_template = PLUGIN_DIR . '/archive-person.php';
+			}
+			return $archive_template;
 		}
 	}
 

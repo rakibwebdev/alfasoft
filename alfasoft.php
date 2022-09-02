@@ -12,7 +12,7 @@ define('PLUGIN_URL', plugin_dir_url(__FILE__));
 define('PLUGIN_TEXTDOMAIN', 'alfasoft');
 
 use AlfaSoft\CreatePersonPostType as PostTypeClass;
-use AlfaSoft\EnqueueScripts as EnqueueScripts;
+use AlfaSoft\EnqueueScripts as EnqueueScriptsClass;
 
 if (!class_exists('AlfaSoft')) {
 	class AlfaSoft
@@ -71,7 +71,7 @@ if (!class_exists('AlfaSoft')) {
 
 		public static function adminEnqueue()
 		{
-			$enqueue_script = new EnqueueScripts();
+			$enqueue_script = new EnqueueScriptsClass();
 		}
 	}
 

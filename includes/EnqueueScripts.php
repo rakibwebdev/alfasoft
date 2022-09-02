@@ -9,7 +9,7 @@ class EnqueueScripts
 {
 	public function __construct()
 	{
-		add_action('wp_enqueue_scripts', [
+		add_action('admin_enqueue_scripts', [
 			$this, 'adminEnqueue'
 		]);
 	}
